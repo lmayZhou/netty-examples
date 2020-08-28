@@ -2,28 +2,83 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.3.3.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
-    </parent>
-    <groupId>com.lmaye</groupId>
     <artifactId>ms-services</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>ms-services</name>
+    <packaging>pom</packaging>
     <description>Microservice Services project for Spring Boot</description>
 
+    <!-- lookup parent from repository -->
+    <parent>
+        <groupId>com.lmaye</groupId>
+        <artifactId>micros-examples</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+
+    <!-- Services Modules -->
+    <modules>
+        <!-- OAuth2 Service -->
+        <module>ms-service-oauth</module>
+        <!-- User Service -->
+        <!--<module>ms-service-user</module>
+        &lt;!&ndash; Mall Service &ndash;&gt;
+        <module>ms-service-mall</module>
+        &lt;!&ndash; Message Service &ndash;&gt;
+        <module>ms-service-message</module>-->
+    </modules>
+
+    <!-- Properties -->
     <properties>
         <java.version>1.8</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <spring-cloud.version>Hoxton.SR6</spring-cloud.version>
+        <spring-cloud-alibaba.version>2.2.1.RELEASE</spring-cloud-alibaba.version>
+        <disruptor.version>3.4.2</disruptor.version>
     </properties>
 
+    <!-- Dependencies -->
     <dependencies>
+        <!-- Microservice core -->
+        <dependency>
+            <groupId>com.lmaye</groupId>
+            <artifactId>ms-core</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <!-- Spring Boot Starter -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
-
+        <!-- log4j2 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-log4j2</artifactId>
+        </dependency>
+        <!-- 异步日志 -->
+        <dependency>
+            <groupId>com.lmax</groupId>
+            <artifactId>disruptor</artifactId>
+        </dependency>
+        <!-- Webflux -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
+        </dependency>
+        <!-- Spring Boot Devtools -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
+            <optional>true</optional>
+        </dependency>
+        <!-- Spring Boot Test -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -37,13 +92,74 @@
         </dependency>
     </dependencies>
 
+    <!-- Dependency Management -->
+    <dependencyManagement>
+        <dependencies>
+            <!-- Yun Ji Swagger Plugin -->
+            <dependency>
+                <groupId>com.yunji</groupId>
+                <artifactId>yj-plugin-swagger</artifactId>
+                <version>${yj-plugin-swagger.version}</version>
+                <!--
+                compile: 编译依赖范围，默认使用该范围，对于编译、测试、运行三宗classpath都有效。
+                test: 测试依赖范围，只对测试classpath有效
+                provided: 已体提供依赖范围。对于编译和测试classpath有效，运行时无效
+                runtime: 运行时依赖范围。对于测试和运行的claspath有效，编译无效
+                system: 系统依赖范围。和provided依赖范围完全一致。使用system范围的依赖，不许通过systemPath元素显示地制定依赖文件的路径。
+                import: 导入依赖范围。不会对三种classpath产生实际的影响。
+                -->
+                <scope>provided</scope>
+            </dependency>
+            <!-- Yun Ji Mybatis Plugin -->
+            <dependency>
+                <groupId>com.yunji</groupId>
+                <artifactId>yj-plugin-mybatis</artifactId>
+                <version>${yj-plugin-mybatis.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <!-- Spring Cloud 版本系列 -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- Spring Cloud Alibaba -->
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${spring-cloud-alibaba.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- 异步日志 -->
+            <dependency>
+                <groupId>com.lmax</groupId>
+                <artifactId>disruptor</artifactId>
+                <version>${disruptor.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <build>
         <plugins>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.5</version>
+                <configuration>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+
+            <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring-boot.version}</version>
             </plugin>
         </plugins>
     </build>
-
 </project>

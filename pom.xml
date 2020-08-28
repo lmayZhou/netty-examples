@@ -6,6 +6,7 @@
     <artifactId>micros-examples</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>micros-examples</name>
+    <packaging>pom</packaging>
     <description>Microservice Examples project for Spring Boot</description>
 
     <!-- lookup parent from repository -->
@@ -16,21 +17,23 @@
         <relativePath/>
     </parent>
 
-    <!-- Properties -->
-    <properties>
-        <yj-core.version>1.0.1</yj-core.version>
-        <yj-plugin.version>1.0.1</yj-plugin.version>
-        <yj-services.version>1.0.1</yj-services.version>
-        <spring-boot.version>2.2.8.RELEASE</spring-boot.version>
-    </properties>
-
     <!-- Project Modules -->
     <modules>
         <!-- Core 系统核心 -->
         <module>ms-core</module>
         <!-- Plugin 系统插件 -->
         <module>ms-plugin</module>
+        <!-- Gateway Service -->
+        <module>ms-gateway</module>
         <!-- Services 系统服务 -->
         <module>ms-services</module>
     </modules>
+
+    <!-- Properties -->
+    <properties>
+        <java.version>1.8</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <spring-boot.version>2.2.8.RELEASE</spring-boot.version>
+    </properties>
 </project>
