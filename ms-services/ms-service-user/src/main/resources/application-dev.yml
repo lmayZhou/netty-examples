@@ -2,9 +2,9 @@ spring:
   # 数据库配置
   datasource:
     name: sys
-    url: jdbc:mysql://www.lmaye.com:3306/yj_memorial?allowMultiQueries=true&useSSL=false&characterEncoding=utf8
+    url: jdbc:mysql://192.168.0.10:3306/ms_user?allowMultiQueries=true&useSSL=false&characterEncoding=utf8
     username: root
-    password: MySql@2018
+    password: root
     hikari:
       max-lifetime: 1800000
       minimum-idle: 1
