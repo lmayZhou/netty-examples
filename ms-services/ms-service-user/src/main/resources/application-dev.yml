@@ -1,0 +1,26 @@
+spring:
+  # 数据库配置
+  datasource:
+    name: sys
+    url: jdbc:mysql://www.lmaye.com:3306/yj_memorial?allowMultiQueries=true&useSSL=false&characterEncoding=utf8
+    username: root
+    password: MySql@2018
+    hikari:
+      max-lifetime: 1800000
+      minimum-idle: 1
+      maximum-pool-size: 2
+      connection-timeout: 30000
+      idle-timeout: 30000
+      connection-test-query: select 1
+  cloud:
+    # Nacos 注册中心
+    nacos:
+      discovery:
+        enabled: true
+        register-enabled: true
+        server-addr: 192.168.0.10:8848
+        namespace: 7fbd94b1-686e-4270-b148-d50e4b2ce64c
+
+# 日志
+logging:
+  config: classpath:log4j2-dev.xml

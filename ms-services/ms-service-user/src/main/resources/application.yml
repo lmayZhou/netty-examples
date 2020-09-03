@@ -1,0 +1,30 @@
+# 服务端口
+server:
+  port: 8003
+
+# Spring 配置
+spring:
+  application:
+    name: service-user
+  profiles:
+    active: dev
+
+# Swagger 配置
+swagger:
+  enabled: true
+  title: Microservice 用户服务-在线接口文档
+  description: Microservice 用户服务-在线接口文档
+  version: 1.0.1
+  termsOfServiceUrl: https://www.lmaye.com
+  basePackage: com.lmaye.ms.service.user.controller
+  basePath: /**
+  contact:
+    email: lmay@lmaye.com
+    name: lmay Zhou
+    url: https://www.lmaye.com
+  globalOperationParameters:
+    - description: 凭证
+      modelRef: string
+      name: Authorization
+      parameterType: header
+      required: false

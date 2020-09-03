@@ -20,11 +20,7 @@
         <!-- OAuth2 Service -->
         <module>ms-service-oauth</module>
         <!-- User Service -->
-        <!--<module>ms-service-user</module>
-        &lt;!&ndash; Mall Service &ndash;&gt;
-        <module>ms-service-mall</module>
-        &lt;!&ndash; Message Service &ndash;&gt;
-        <module>ms-service-message</module>-->
+        <module>ms-service-user</module>
     </modules>
 
     <!-- Properties -->
@@ -95,11 +91,11 @@
     <!-- Dependency Management -->
     <dependencyManagement>
         <dependencies>
-            <!-- Yun Ji Swagger Plugin -->
+            <!-- Microservice Swagger Plugin -->
             <dependency>
-                <groupId>com.yunji</groupId>
-                <artifactId>yj-plugin-swagger</artifactId>
-                <version>${yj-plugin-swagger.version}</version>
+                <groupId>com.lmaye</groupId>
+                <artifactId>ms-plugin-swagger</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
                 <!--
                 compile: 编译依赖范围，默认使用该范围，对于编译、测试、运行三宗classpath都有效。
                 test: 测试依赖范围，只对测试classpath有效
@@ -110,11 +106,11 @@
                 -->
                 <scope>provided</scope>
             </dependency>
-            <!-- Yun Ji Mybatis Plugin -->
+            <!-- Microservice Mybatis Plugin -->
             <dependency>
-                <groupId>com.yunji</groupId>
-                <artifactId>yj-plugin-mybatis</artifactId>
-                <version>${yj-plugin-mybatis.version}</version>
+                <groupId>com.lmaye</groupId>
+                <artifactId>ms-plugin-mybatis</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
                 <scope>provided</scope>
             </dependency>
             <!-- Spring Cloud 版本系列 -->
