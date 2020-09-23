@@ -56,8 +56,8 @@ public class MyBatisServiceImpl<M extends IMyBatisRepository<T>, T, ID extends S
                 Assert.notNull(tableInfo, "error: can not execute. because can not find cache of TableInfo for entity!");
                 String keyProperty = tableInfo.getKeyProperty();
                 Assert.notNull(keyProperty, "error: can not execute. because can not find column for id from entity!");
-                Object idVal = ReflectionKit.getMethodValue(clazz, entity, keyProperty);
-                if (StringUtils.checkValNotNull(idVal) || Objects.isNull(getById((Serializable) idVal))) {
+                Object idVal = ReflectionKit.getFieldValue(entity, keyProperty);
+                if (StringUtils.checkValNull(idVal) || Objects.isNull(getById((Serializable) idVal))) {
                     save(entity);
                 } else {
                     updateById(entity);

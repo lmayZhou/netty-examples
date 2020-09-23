@@ -27,6 +27,8 @@
         <module>ms-gateway</module>
         <!-- Services 系统服务 -->
         <module>ms-services</module>
+        <!-- Services Api 系统服务 -->
+        <module>ms-services-api</module>
     </modules>
 
     <!-- Properties -->

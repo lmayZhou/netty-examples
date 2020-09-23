@@ -3,6 +3,7 @@ package com.lmaye.ms.core.query;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import org.hibernate.validator.constraints.Range;
 
@@ -17,6 +18,7 @@ import java.io.Serializable;
  * @email lmay@lmaye.com
  * @since 2020/7/1 7:56 星期三
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Accessors(chain = true)
 @ApiModel(value = "PageQuery", description = "分页查询参数")
