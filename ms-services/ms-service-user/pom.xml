@@ -17,15 +17,15 @@
 
     <!-- Dependencies -->
     <dependencies>
-        <!-- Microservice Swagger Plugin -->
+        <!-- Microservice Swagger Starter -->
         <dependency>
             <groupId>com.lmaye</groupId>
-            <artifactId>ms-plugin-swagger</artifactId>
+            <artifactId>ms-starter-swagger</artifactId>
         </dependency>
-        <!-- Microservice Mybatis Plugin -->
+        <!-- Microservice Mybatis Starter -->
         <dependency>
             <groupId>com.lmaye</groupId>
-            <artifactId>ms-plugin-mybatis</artifactId>
+            <artifactId>ms-starter-mybatis</artifactId>
         </dependency>
         <!-- Nacos -->
         <dependency>

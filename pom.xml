@@ -21,8 +21,8 @@
     <modules>
         <!-- Core 系统核心 -->
         <module>ms-core</module>
-        <!-- Plugin 系统插件 -->
-        <module>ms-plugin</module>
+        <!-- Starter 系统依赖 -->
+        <module>ms-starters</module>
         <!-- Gateway Service -->
         <module>ms-gateway</module>
         <!-- Services 系统服务 -->
