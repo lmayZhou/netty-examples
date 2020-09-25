@@ -35,22 +35,22 @@ public class MyBatisUtils {
             convertQuery(queryWrapper, query);
         }
         // 且操作
-        Query and = query.getAnd();
+        Query and = query.getMust();
         while (!Objects.isNull(and)) {
             final Query wrapperQuery = and;
             if (!wrapperQuery.isNull()) {
                 queryWrapper.and(it -> convertQuery(it, wrapperQuery));
             }
-            and = and.getAnd();
+            and = and.getMust();
         }
         // 或操作
-        Query or = query.getOr();
+        Query or = query.getShould();
         while (!Objects.isNull(or)) {
             final Query wrapperQuery = or;
             if (!wrapperQuery.isNull()) {
                 queryWrapper.or(it -> convertQuery(it, wrapperQuery));
             }
-            or = or.getOr();
+            or = or.getShould();
         }
         return queryWrapper;
     }
@@ -65,13 +65,13 @@ public class MyBatisUtils {
      */
     private static <T> QueryWrapper<T> convertQuery(QueryWrapper<T> queryWrapper, Query query) {
         // 等于查询
-        convertTermQuery(queryWrapper, query.getTermQueries());
+        convertTermQuery(queryWrapper, query.getTerms());
         // 模糊查询
-        convertMatchQuery(queryWrapper, query.getMatchQueries());
+        convertMatchQuery(queryWrapper, query.getMatches());
         // 范围查询
-        convertRangeQuery(queryWrapper, query.getRangeQueries());
+        convertRangeQuery(queryWrapper, query.getRanges());
         // IN查询
-        convertInQuery(queryWrapper, query.getInQueries());
+        convertInQuery(queryWrapper, query.getIns());
         return queryWrapper;
     }
 

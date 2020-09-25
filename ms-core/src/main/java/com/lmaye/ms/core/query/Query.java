@@ -29,42 +29,42 @@ public class Query implements Serializable {
      */
     @Valid
     @ApiModelProperty("等值查询")
-    private List<TermQuery> termQueries;
+    private List<TermQuery> terms;
 
     /**
      * 模糊查询
      */
     @Valid
     @ApiModelProperty("模糊查询")
-    private List<MatchQuery> matchQueries;
+    private List<MatchQuery> matches;
 
     /**
      * 范围查询
      */
     @Valid
     @ApiModelProperty("范围查询")
-    private List<RangeQuery> rangeQueries;
+    private List<RangeQuery> ranges;
 
     /**
      * IN查询
      */
     @Valid
     @ApiModelProperty("IN查询")
-    private List<InQuery> inQueries;
+    private List<InQuery> ins;
 
     /**
      * 且查询
      */
     @Valid
     @ApiModelProperty("且查询")
-    private Query and;
+    private Query must;
 
     /**
      * 或查询
      */
     @Valid
     @ApiModelProperty("或查询")
-    private Query or;
+    private Query should;
 
     /**
      * 是否为空
@@ -72,7 +72,7 @@ public class Query implements Serializable {
      * @return boolean
      */
     public boolean isNull() {
-        return CollectionUtils.isEmpty(termQueries) && CollectionUtils.isEmpty(matchQueries)
-                && CollectionUtils.isEmpty(rangeQueries) && CollectionUtils.isEmpty(inQueries);
+        return CollectionUtils.isEmpty(terms) && CollectionUtils.isEmpty(matches)
+                && CollectionUtils.isEmpty(ranges) && CollectionUtils.isEmpty(ins);
     }
 }

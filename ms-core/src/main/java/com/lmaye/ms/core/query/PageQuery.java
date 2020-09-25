@@ -3,10 +3,10 @@ package com.lmaye.ms.core.query;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import org.hibernate.validator.constraints.Range;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import java.io.Serializable;
 
@@ -18,12 +18,18 @@ import java.io.Serializable;
  * @email lmay@lmaye.com
  * @since 2020/7/1 7:56 星期三
  */
-@EqualsAndHashCode(callSuper = true)
 @Data
 @Accessors(chain = true)
 @ApiModel(value = "PageQuery", description = "分页查询参数")
-public class PageQuery extends ListQuery implements Serializable {
+public class PageQuery implements Serializable {
     private static final long serialVersionUID = 1L;
+
+    /**
+     * 查询条件
+     */
+    @ApiModelProperty("查询条件")
+    @Valid
+    private Query query;
 
     /**
      * 当前页码(默认: 1)
@@ -38,4 +44,11 @@ public class PageQuery extends ListQuery implements Serializable {
     @Range(min = 1, max = 10000)
     @ApiModelProperty("每页显示页数(默认: 10)")
     private Long pageSize = 10L;
+
+    /**
+     * 排序
+     */
+    @Valid
+    @ApiModelProperty("排序")
+    private Sort sort;
 }

@@ -5,6 +5,7 @@
     <artifactId>ms-starter-swagger</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>ms-starter-swagger</name>
+    <packaging>jar</packaging>
     <description>Microservice Starter Swagger project for Spring Boot</description>
 
     <!-- lookup parent from repository -->

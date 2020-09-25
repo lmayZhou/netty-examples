@@ -5,6 +5,7 @@
     <artifactId>ms-starter-redis</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>ms-starter-redis</name>
+    <packaging>jar</packaging>
     <description>Microservice Starter Redis project for Spring Boot</description>
 
     <!-- lookup parent from repository -->

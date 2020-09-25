@@ -5,6 +5,7 @@
     <artifactId>ms-starters</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>ms-starters</name>
+    <packaging>pom</packaging>
     <description>Microservice Starters project for Spring Boot</description>
 
     <!-- lookup parent from repository -->

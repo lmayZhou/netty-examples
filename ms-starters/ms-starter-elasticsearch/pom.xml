@@ -5,6 +5,7 @@
     <artifactId>ms-starter-elasticsearch</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>ms-starter-elasticsearch</name>
+    <packaging>jar</packaging>
     <description>Microservice Starter Elasticsearch project for Spring Boot</description>
 
     <!-- lookup parent from repository -->
@@ -23,6 +24,21 @@
 
     <!-- Dependencies -->
     <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
+            <!--<exclusions>
+                <exclusion>
+                    <groupId>org.elasticsearch</groupId>
+                    <artifactId>elasticsearch</artifactId>
+                </exclusion>
+            </exclusions>-->
+        </dependency>
 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-actuator-autoconfigure</artifactId>
+            <optional>true</optional>
+        </dependency>
     </dependencies>
 </project>

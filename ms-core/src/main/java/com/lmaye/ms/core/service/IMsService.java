@@ -1,4 +1,4 @@
-package com.lmaye.ms.starter.mybatis.service;
+package com.lmaye.ms.core.service;
 
 import com.lmaye.ms.core.context.PageResult;
 import com.lmaye.ms.core.exception.ServiceException;
@@ -17,7 +17,7 @@ import java.util.Optional;
  * @date 2020/1/2 14:45 星期四
  * @email lmay@lmaye.com
  */
-public interface ILrService<T, ID extends Serializable> {
+public interface IMsService<T, ID extends Serializable> {
     /**
      * Saves a given entity. Use the returned instance for further operations as the save operation might have changed the
      * entity instance completely.

@@ -7,7 +7,6 @@ import lombok.experimental.Accessors;
 
 import javax.validation.Valid;
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * -- 列表查询参数
@@ -35,5 +34,5 @@ public class ListQuery implements Serializable {
      */
     @Valid
     @ApiModelProperty("排序")
-    private List<Sort> sorts;
+    private Sort sort;
 }

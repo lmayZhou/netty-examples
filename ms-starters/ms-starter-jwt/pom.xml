@@ -5,6 +5,7 @@
     <artifactId>ms-starter-jwt</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>ms-starter-jwt</name>
+    <packaging>jar</packaging>
     <description>Microservice Starter JWT project for Spring Boot</description>
 
     <!-- lookup parent from repository -->
