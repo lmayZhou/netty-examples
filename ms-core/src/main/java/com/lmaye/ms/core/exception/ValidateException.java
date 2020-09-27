@@ -1,6 +1,6 @@
 package com.lmaye.ms.core.exception;
 
-import com.lmaye.ms.core.context.ResultCode;
+import com.lmaye.ms.core.context.IResultCode;
 
 /**
  * -- 验证自定义异常
@@ -14,14 +14,14 @@ public class ValidateException extends RuntimeException {
     /**
      * 响应编码
      */
-    private ResultCode resultCode;
+    private IResultCode resultCode;
 
-    public ValidateException(ResultCode resultCode) {
+    public ValidateException(IResultCode resultCode) {
         super(resultCode.getPropKey());
         this.resultCode = resultCode;
     }
 
-    public ValidateException(ResultCode resultCode, Throwable cause) {
+    public ValidateException(IResultCode resultCode, Throwable cause) {
         super(resultCode.getPropKey(), cause);
         this.resultCode = resultCode;
     }
@@ -29,9 +29,9 @@ public class ValidateException extends RuntimeException {
     /**
      * 获取错误信息
      *
-     * @return ResultCode
+     * @return IResultCode
      */
-    public ResultCode getResultCode() {
+    public IResultCode getResultCode() {
         return resultCode;
     }
 }

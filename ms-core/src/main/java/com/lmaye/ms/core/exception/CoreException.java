@@ -1,6 +1,6 @@
 package com.lmaye.ms.core.exception;
 
-import com.lmaye.ms.core.context.ResultCode;
+import com.lmaye.ms.core.context.IResultCode;
 
 /**
  * -- 通用自定义异常
@@ -14,14 +14,14 @@ public class CoreException extends RuntimeException {
     /**
      * 响应编码
      */
-    private final ResultCode resultCode;
+    private final IResultCode resultCode;
 
-    public CoreException(ResultCode resultCode) {
+    public CoreException(IResultCode resultCode) {
         super(resultCode.getPropKey());
         this.resultCode = resultCode;
     }
 
-    public CoreException(ResultCode resultCode, Throwable cause) {
+    public CoreException(IResultCode resultCode, Throwable cause) {
         super(resultCode.getPropKey(), cause);
         this.resultCode = resultCode;
     }
@@ -31,7 +31,7 @@ public class CoreException extends RuntimeException {
      *
      * @return ResultCode
      */
-    public ResultCode getResultCode() {
+    public IResultCode getResultCode() {
         return resultCode;
     }
 }

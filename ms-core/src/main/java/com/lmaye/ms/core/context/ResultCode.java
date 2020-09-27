@@ -1,7 +1,5 @@
 package com.lmaye.ms.core.context;
 
-import lombok.Getter;
-
 /**
  * -- 响应编码
  * - 枚举
@@ -11,8 +9,7 @@ import lombok.Getter;
  * @email lmay@lmaye.com
  * @since 2020/7/1 7:59 星期三
  */
-@Getter
-public enum ResultCode {
+public enum ResultCode implements IResultCode {
     /**
      * 枚举值
      */
@@ -51,5 +48,20 @@ public enum ResultCode {
         this.code = code;
         this.propKey = propKey;
         this.desc = desc;
+    }
+
+    @Override
+    public Integer getCode() {
+        return code;
+    }
+
+    @Override
+    public String getPropKey() {
+        return propKey;
+    }
+
+    @Override
+    public String getDesc() {
+        return desc;
     }
 }

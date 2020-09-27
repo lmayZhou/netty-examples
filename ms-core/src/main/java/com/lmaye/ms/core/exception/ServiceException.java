@@ -1,6 +1,6 @@
 package com.lmaye.ms.core.exception;
 
-import com.lmaye.ms.core.context.ResultCode;
+import com.lmaye.ms.core.context.IResultCode;
 
 /**
  * -- 业务自定义异常
@@ -14,14 +14,14 @@ public class ServiceException extends RuntimeException {
     /**
      * 响应编码
      */
-    private final ResultCode resultCode;
+    private final IResultCode resultCode;
 
-    public ServiceException(ResultCode resultCode) {
+    public ServiceException(IResultCode resultCode) {
         super(resultCode.getPropKey());
         this.resultCode = resultCode;
     }
 
-    public ServiceException(ResultCode resultCode, Throwable cause) {
+    public ServiceException(IResultCode resultCode, Throwable cause) {
         super(resultCode.getPropKey(), cause);
         this.resultCode = resultCode;
     }
@@ -29,9 +29,9 @@ public class ServiceException extends RuntimeException {
     /**
      * 获取错误信息
      *
-     * @return ResultCode
+     * @return IResultCode
      */
-    public ResultCode getResultCode() {
+    public IResultCode getResultCode() {
         return resultCode;
     }
 }
