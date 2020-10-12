@@ -9,7 +9,7 @@ import io.minio.MinioClient;
  * @date 2020/10/12 17:44 星期一
  * @since Email: lmay_zlm@meten.com
  */
-public interface MinIoClient {
+public interface IMinIoClient {
     /**
      * 获取 MinIoClient
      *

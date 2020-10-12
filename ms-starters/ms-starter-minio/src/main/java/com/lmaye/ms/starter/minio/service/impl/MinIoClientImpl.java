@@ -1,6 +1,6 @@
 package com.lmaye.ms.starter.minio.service.impl;
 
-import com.lmaye.ms.starter.minio.service.MinIoClient;
+import com.lmaye.ms.starter.minio.service.IMinIoClient;
 import io.minio.MinioClient;
 
 import java.util.Objects;
@@ -12,8 +12,8 @@ import java.util.Objects;
  * @date 2020/10/12 17:46 星期一
  * @since Email: lmay_zlm@meten.com
  */
-public class MinIoClientImpl implements MinIoClient {
-    private MinioClient minIoClient = null;
+public class MinIoClientImpl implements IMinIoClient {
+    private MinioClient minIoClient;
 
     /**
      * 获取 MinIoClient

@@ -1,6 +1,6 @@
 package com.lmaye.ms.starter.minio.service.impl;
 
-import com.lmaye.ms.starter.minio.service.CleanCache;
+import com.lmaye.ms.starter.minio.service.ICleanCache;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
@@ -14,7 +14,7 @@ import java.util.Objects;
  * @since Email: lmay_zlm@meten.com
  */
 @Slf4j
-public class CleanCacheImpl implements CleanCache {
+public class CleanCacheImpl implements ICleanCache {
     /**
      * 清除缓存
      *
