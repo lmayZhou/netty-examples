@@ -29,6 +29,8 @@
         <module>ms-starter-redis</module>
         <!-- Swagger Starter -->
         <module>ms-starter-swagger</module>
+        <!-- MinIO Starter -->
+        <module>ms-starter-minio</module>
     </modules>
 
     <!-- Properties -->

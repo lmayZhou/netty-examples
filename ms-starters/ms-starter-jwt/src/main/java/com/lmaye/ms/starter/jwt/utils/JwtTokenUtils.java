@@ -25,7 +25,7 @@ public class JwtTokenUtils {
     /**
      * 密钥
      */
-    private String secret = "WkpVU0kwSlM4RDdTMjI4QQ==";
+    private static final String SECRET = "WkpVU0kwSlM4RDdTMjI4QQ==";
 
     public JwtTokenUtils(JwtProperties jwtProperties) {
         this.jwtProperties = jwtProperties;
@@ -45,7 +45,7 @@ public class JwtTokenUtils {
                 .setIssuedAt(new Date())
                 .setSubject(jwtToken.getScope())
                 .setAudience(jwtToken.getUserId())
-                .signWith(SignatureAlgorithm.HS512, secret)
+                .signWith(SignatureAlgorithm.HS512, SECRET)
                 .compact();
         return new AccessToken().setAccessToken(compact).setExpiresIn(jwtToken.getExpiresIn());
     }
@@ -58,7 +58,7 @@ public class JwtTokenUtils {
      */
     public Claims parse(String token) throws AuthException {
         try {
-            return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
+            return Jwts.parser().setSigningKey(SECRET).parseClaimsJws(token).getBody();
         } catch (Exception e) {
             throw new AuthException(ResultCode.UNAUTHORIZED, e);
         }

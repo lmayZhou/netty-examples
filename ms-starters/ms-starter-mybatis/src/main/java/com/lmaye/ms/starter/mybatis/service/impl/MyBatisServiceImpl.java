@@ -6,7 +6,6 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.metadata.TableInfo;
 import com.baomidou.mybatisplus.core.metadata.TableInfoHelper;
 import com.baomidou.mybatisplus.core.toolkit.Assert;
-import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.ReflectionKit;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -24,6 +23,7 @@ import com.lmaye.ms.starter.mybatis.service.IMyBatisService;
 import com.lmaye.ms.starter.mybatis.utils.MyBatisUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import java.io.Serializable;
 import java.util.List;
@@ -126,18 +126,17 @@ public class MyBatisServiceImpl<M extends IMyBatisRepository<T>, T, ID extends S
         try {
             if (Objects.isNull(query) || Objects.isNull(query.getQuery())) {
                 if (!Objects.isNull(query)) {
-                    List<Sort> sorts = query.getSorts();
-                    if (!CollectionUtils.isEmpty(sorts)) {
+                    Sort sort = query.getSort();
+                    if (!Objects.isNull(sort) && !org.springframework.util.CollectionUtils.isEmpty(sort.getOrder())) {
                         QueryWrapper<T> queryWrapper = new QueryWrapper<>();
-                        sorts.forEach(it -> queryWrapper.orderBy(true,
-                                Objects.equals(YesOrNo.YES.getCode(), it.getAsc()),
-                                it.getColumn()));
+                        sort.getOrder().forEach(o -> queryWrapper.orderBy(true,
+                                Objects.equals(YesOrNo.YES.getCode(), o.getAsc()), o.getName()));
                         return super.list(queryWrapper);
                     }
                 }
                 return super.list();
             }
-            QueryWrapper<T> queryWrapper = getQueryWrapper(query.getQuery(), query.getSorts());
+            QueryWrapper<T> queryWrapper = getQueryWrapper(query.getQuery(), query.getSort());
             return super.list(queryWrapper);
         } catch (Exception e) {
             throw new ServiceException(ResultCode.OPERATION_FAILED, e);
@@ -148,23 +147,23 @@ public class MyBatisServiceImpl<M extends IMyBatisRepository<T>, T, ID extends S
     public PageResult<T> findAll(PageQuery query) throws ServiceException {
         try {
             IPage<T> page;
-            if(Objects.isNull(query.getQuery())) {
-                List<Sort> sorts = query.getSorts();
-                if(!CollectionUtils.isEmpty(sorts)) {
+
+            if (Objects.isNull(query.getQuery())) {
+                Sort sort = query.getSort();
+                if (!Objects.isNull(sort) && !org.springframework.util.CollectionUtils.isEmpty(sort.getOrder())) {
                     QueryWrapper<T> queryWrapper = new QueryWrapper<>();
-                    sorts.forEach(it -> queryWrapper.orderBy(true,
-                            Objects.equals(YesOrNo.YES.getCode(), it.getAsc()),
-                            it.getColumn()));
+                    sort.getOrder().forEach(o -> queryWrapper.orderBy(true,
+                            Objects.equals(YesOrNo.YES.getCode(), o.getAsc()), o.getName()));
                     page = super.page(new Page<>(query.getPageIndex(), query.getPageSize()), queryWrapper);
                 } else {
                     page = super.page(new Page<>(query.getPageIndex(), query.getPageSize()));
                 }
             } else {
-                QueryWrapper<T> queryWrapper = getQueryWrapper(query.getQuery(), query.getSorts());
+                QueryWrapper<T> queryWrapper = getQueryWrapper(query.getQuery(), query.getSort());
                 page = super.page(new Page<>(query.getPageIndex(), query.getPageSize()), queryWrapper);
             }
             return new PageResult<T>().setPageIndex(page.getCurrent()).setPageSize(page.getSize())
-                    .setPages(page.getPages()).setPages(page.getTotal()).setRecords(page.getRecords());
+                    .setPages(page.getPages()).setTotal(page.getTotal()).setRecords(page.getRecords());
         } catch (Exception e) {
             throw new ServiceException(ResultCode.OPERATION_FAILED, e);
         }
@@ -173,7 +172,7 @@ public class MyBatisServiceImpl<M extends IMyBatisRepository<T>, T, ID extends S
     @Override
     public long count(Query query) throws ServiceException {
         try {
-            if(Objects.isNull(query)) {
+            if (Objects.isNull(query)) {
                 return super.count();
             }
             return super.count(MyBatisUtils.convert(query));
@@ -183,17 +182,18 @@ public class MyBatisServiceImpl<M extends IMyBatisRepository<T>, T, ID extends S
     }
 
     /**
-     * 获取查询封装
+     * 获取查询Wrapper
      *
-     * @param query 查询对象
-     * @param sorts 排序
+     * @param query TortoiseQuery
+     * @param sort  TortoiseSort
      * @return QueryWrapper<T>
      */
-    protected QueryWrapper<T> getQueryWrapper(Query query, List<Sort> sorts) {
+    protected QueryWrapper<T> getQueryWrapper(Query query, Sort sort) {
         QueryWrapper<T> queryWrapper = MyBatisUtils.convert(query);
-        if(!CollectionUtils.isEmpty(sorts)) {
-            sorts.forEach(it -> queryWrapper.orderBy(true, Objects.equals(YesOrNo.YES.getCode(), it.getAsc()),
-                    it.getColumn()));
+        // 排序
+        if (!Objects.isNull(sort) && !CollectionUtils.isEmpty(sort.getOrder())) {
+            sort.getOrder().forEach(o -> queryWrapper.orderBy(true,
+                    Objects.equals(YesOrNo.YES.getCode(), o.getAsc()), o.getName()));
         }
         return queryWrapper;
     }
