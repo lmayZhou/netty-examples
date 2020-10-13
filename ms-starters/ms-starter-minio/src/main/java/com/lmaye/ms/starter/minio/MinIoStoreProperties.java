@@ -35,6 +35,11 @@ public class MinIoStoreProperties {
     private String secretKey;
 
     /**
+     * 文件最大大小
+     */
+    private Long partMaxSize;
+
+    /**
      * 清除缓存
      */
     private CleanCache cleanCache = new CleanCache();

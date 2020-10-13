@@ -27,6 +27,11 @@
             <groupId>com.lmaye</groupId>
             <artifactId>ms-starter-mybatis</artifactId>
         </dependency>
+        <!-- Microservice MinIO Starter -->
+        <dependency>
+            <groupId>com.lmaye</groupId>
+            <artifactId>ms-starter-minio</artifactId>
+        </dependency>
         <!-- Nacos -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>

@@ -75,12 +75,18 @@ public class MinIoFileStoreServiceImpl implements IMinIoFileStoreService {
      */
     private String cacheDirectory;
 
+    /**
+     * 文件限制大小
+     */
+    private Long partSize;
+
     @PostConstruct
     private void init() {
         this.endpoint = properties.getEndpoint();
         this.bucket = properties.getBucket();
         this.accessKey = properties.getAccessKey();
         this.secretKey = properties.getSecretKey();
+        this.partSize = properties.getPartMaxSize();
         MinIoStoreProperties.CleanCache propertiesCleanCache = properties.getCleanCache();
         if (!Objects.isNull(propertiesCleanCache)) {
             this.cacheDirectory = propertiesCleanCache.getDirectory();
@@ -180,8 +186,20 @@ public class MinIoFileStoreServiceImpl implements IMinIoFileStoreService {
      * @return String
      */
     @Override
-    public String save(File file, String fileName) {
+    public String saveFile(File file, String fileName) {
         return saveAssignBucket(bucket, file, fileName);
+    }
+
+    /**
+     * 文件存储
+     *
+     * @param is       文件流
+     * @param fileName 文件名称
+     * @return String
+     */
+    @Override
+    public String saveStream(InputStream is, String fileName) {
+        return saveAssignBucket(bucket, is, fileName);
     }
 
     /**
@@ -245,8 +263,7 @@ public class MinIoFileStoreServiceImpl implements IMinIoFileStoreService {
             }
             MinioClient client = connect();
             checkBucket(client, bucket);
-            // TODO 10M [10 * 1024 * 1024]
-            client.putObject(PutObjectArgs.builder().bucket(bucket).stream(is, -1, 10485760).build());
+            client.putObject(PutObjectArgs.builder().bucket(bucket).stream(is, -1, partSize).build());
             return fileName;
         } catch (Exception e) {
             log.error("save file error: {}", e.getMessage());

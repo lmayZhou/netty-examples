@@ -21,6 +21,20 @@ spring:
         server-addr: 172.31.6.106:8848
         namespace: a6b8fdfd-14b4-4264-94fc-9d41b92a7035
 
+# MinIO File Store
+minio:
+  store:
+    endpoint: http://172.31.6.106:9000
+    bucket: ms-example
+    accessKey: minio
+    secretKey: minio123
+    partMaxSize: 10485760
+    cleanCache:
+      enabled: true
+      directory: ./tmp
+      cleanPeriod: 12960000
+      aliveDuration: 12960000
+
 # 日志
 logging:
   config: classpath:log4j2-dev.xml

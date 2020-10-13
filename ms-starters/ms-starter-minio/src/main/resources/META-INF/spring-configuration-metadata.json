@@ -35,6 +35,13 @@
       "defaultValue": "minio123"
     },
     {
+      "name": "minio.store.partMaxSize",
+      "type": "java.lang.Long",
+      "sourceType": "com.lmaye.ms.starter.minio.MinIoStoreProperties",
+      "description": "Configuration Metadata(MinIO File Store: Part Max Size default 10M).",
+      "defaultValue": 10485760
+    },
+    {
       "name": "minio.store.cleanCache",
       "type": "java.lang.Object",
       "sourceType": "com.lmaye.ms.starter.minio.MinIoStoreProperties",

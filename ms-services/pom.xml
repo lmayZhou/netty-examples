@@ -113,6 +113,13 @@
                 <version>0.0.1-SNAPSHOT</version>
                 <scope>provided</scope>
             </dependency>
+            <!-- Microservice MinIO Starter -->
+            <dependency>
+                <groupId>com.lmaye</groupId>
+                <artifactId>ms-starter-minio</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+                <scope>provided</scope>
+            </dependency>
             <!-- Spring Cloud 版本系列 -->
             <dependency>
                 <groupId>org.springframework.cloud</groupId>

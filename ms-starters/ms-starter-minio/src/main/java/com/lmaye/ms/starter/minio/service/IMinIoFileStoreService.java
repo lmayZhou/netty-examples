@@ -34,7 +34,16 @@ public interface IMinIoFileStoreService {
      * @param fileName 文件名称
      * @return String
      */
-    String save(File file, String fileName);
+    String saveFile(File file, String fileName);
+
+    /**
+     * 文件存储
+     *
+     * @param is       文件流
+     * @param fileName 文件名称
+     * @return String
+     */
+    String saveStream(InputStream is, String fileName);
 
     /**
      * 文件存储
