@@ -7,7 +7,6 @@ import com.lmaye.ms.starter.minio.service.impl.CleanCacheServiceImpl;
 import com.lmaye.ms.starter.minio.service.impl.MinIoClientServiceImpl;
 import com.lmaye.ms.starter.minio.service.impl.MinIoFileStoreServiceImpl;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,7 +21,7 @@ import org.springframework.context.annotation.Profile;
  */
 @Configuration
 @Profile({"dev", "test"})
-@ConditionalOnProperty(prefix = "minio.store", value = "enabled", havingValue = "true")
+//@ConditionalOnProperty(prefix = "minio.store", value = "enabled", havingValue = "true")
 @EnableConfigurationProperties(MinIoStoreProperties.class)
 public class MinIoAutoConfiguration {
     /**
@@ -31,7 +30,7 @@ public class MinIoAutoConfiguration {
      */
     @Bean
     @ConditionalOnMissingBean(IMinIoFileStoreService.class)
-    IMinIoFileStoreService minIoFileStore() {
+    IMinIoFileStoreService minIoFileStoreService() {
         return new MinIoFileStoreServiceImpl();
     }
 
@@ -42,7 +41,7 @@ public class MinIoAutoConfiguration {
      */
     @Bean
     @ConditionalOnMissingBean(ICleanCacheService.class)
-    ICleanCacheService cleanCache() {
+    ICleanCacheService cleanCacheService() {
         return new CleanCacheServiceImpl();
     }
 
@@ -53,7 +52,7 @@ public class MinIoAutoConfiguration {
      */
     @Bean
     @ConditionalOnMissingBean(IMinIoClientService.class)
-    IMinIoClientService minIoClient() {
+    IMinIoClientService minIoClientService() {
         return new MinIoClientServiceImpl();
     }
 }

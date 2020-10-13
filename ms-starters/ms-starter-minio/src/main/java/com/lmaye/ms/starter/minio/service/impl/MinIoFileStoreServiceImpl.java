@@ -193,13 +193,14 @@ public class MinIoFileStoreServiceImpl implements IMinIoFileStoreService {
     /**
      * 文件存储
      *
-     * @param is       文件流
-     * @param fileName 文件名称
+     * @param is          文件流
+     * @param fileName    文件名称
+     * @param contentType 文件类型
      * @return String
      */
     @Override
-    public String saveStream(InputStream is, String fileName) {
-        return saveAssignBucket(bucket, is, fileName);
+    public String saveStream(InputStream is, String fileName, String contentType) {
+        return saveAssignBucket(bucket, is, fileName, contentType);
     }
 
     /**
@@ -249,13 +250,14 @@ public class MinIoFileStoreServiceImpl implements IMinIoFileStoreService {
      * 文件存储
      * - 指定 Bucket、文件流、文件名
      *
-     * @param bucket   Bucket
-     * @param is       文件流
-     * @param fileName 文件名称
+     * @param bucket      Bucket
+     * @param is          文件流
+     * @param fileName    文件名称
+     * @param contentType 文件类型
      * @return String
      */
     @Override
-    public String saveAssignBucket(String bucket, InputStream is, String fileName) {
+    public String saveAssignBucket(String bucket, InputStream is, String fileName, String contentType) {
         try {
             if (StringUtils.isBlank(bucket)) {
                 log.error("Bucket name cannot be blank.");
@@ -263,7 +265,8 @@ public class MinIoFileStoreServiceImpl implements IMinIoFileStoreService {
             }
             MinioClient client = connect();
             checkBucket(client, bucket);
-            client.putObject(PutObjectArgs.builder().bucket(bucket).stream(is, -1, partSize).build());
+            ObjectWriteResponse response = client.putObject(PutObjectArgs.builder().bucket(bucket).stream(is, -1, partSize)
+                    .contentType(contentType).build());
             return fileName;
         } catch (Exception e) {
             log.error("save file error: {}", e.getMessage());
@@ -353,7 +356,7 @@ public class MinIoFileStoreServiceImpl implements IMinIoFileStoreService {
      */
     @Override
     public File getFileAssignBucket(String bucket, String fileName) {
-        try(InputStream is = getStreamAssignBucket(bucket, fileName);) {
+        try (InputStream is = getStreamAssignBucket(bucket, fileName);) {
             File fileDir = new File(cacheDirectory);
             if (!fileDir.exists() || fileDir.isFile()) {
                 boolean flag = fileDir.mkdirs();

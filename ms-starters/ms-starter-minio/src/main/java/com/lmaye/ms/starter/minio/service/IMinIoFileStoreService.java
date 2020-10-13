@@ -39,11 +39,12 @@ public interface IMinIoFileStoreService {
     /**
      * 文件存储
      *
-     * @param is       文件流
-     * @param fileName 文件名称
+     * @param is          文件流
+     * @param fileName    文件名称
+     * @param contentType 文件类型
      * @return String
      */
-    String saveStream(InputStream is, String fileName);
+    String saveStream(InputStream is, String fileName, String contentType);
 
     /**
      * 文件存储
@@ -70,12 +71,13 @@ public interface IMinIoFileStoreService {
      * 文件存储
      * - 指定 Bucket、文件流、文件名
      *
-     * @param bucket   Bucket
-     * @param is       文件流
-     * @param fileName 文件名称
+     * @param bucket      Bucket
+     * @param is          文件流
+     * @param fileName    文件名称
+     * @param contentType 文件类型
      * @return String
      */
-    String saveAssignBucket(String bucket, InputStream is, String fileName);
+    String saveAssignBucket(String bucket, InputStream is, String fileName, String contentType);
 
     /**
      * 文件删除
