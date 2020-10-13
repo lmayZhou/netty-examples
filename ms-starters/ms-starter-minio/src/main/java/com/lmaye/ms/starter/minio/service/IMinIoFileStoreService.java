@@ -2,6 +2,7 @@ package com.lmaye.ms.starter.minio.service;
 
 import java.io.File;
 import java.io.InputStream;
+import java.util.concurrent.TimeUnit;
 
 /**
  * -- MinIo File Store Service
@@ -148,4 +149,26 @@ public interface IMinIoFileStoreService {
      * @param fileName 文件名称
      */
     void downloadAssignBucket(String bucket, String fileName);
+
+    /**
+     * 签名地址
+     *
+     * @param fileName 文件名称
+     * @param duration 有效时间
+     * @param unit     时间单位
+     * @return String
+     */
+    String preSignedUrl(String fileName, int duration, TimeUnit unit);
+
+    /**
+     * 签名地址
+     * - 指定 Bucket
+     *
+     * @param bucket   Bucket
+     * @param fileName 文件名称
+     * @param duration 有效时间
+     * @param unit     时间单位
+     * @return String
+     */
+    String preSignedUrlAssignBucket(String bucket, String fileName, int duration, TimeUnit unit);
 }

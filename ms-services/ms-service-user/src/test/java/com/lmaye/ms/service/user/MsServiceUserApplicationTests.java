@@ -1,13 +1,30 @@
 package com.lmaye.ms.service.user;
 
+import com.lmaye.ms.starter.minio.service.IMinIoClientService;
+import io.minio.GetPresignedObjectUrlArgs;
+import io.minio.MinioClient;
+import io.minio.errors.*;
+import io.minio.http.Method;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.io.IOException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.util.concurrent.TimeUnit;
 
 @SpringBootTest
 class MsServiceUserApplicationTests {
+    @Autowired
+    private IMinIoClientService minIoClientService;
 
     @Test
-    void contextLoads() {
+    void contextLoads() throws Exception {
+        MinioClient client = minIoClientService.getClient("http://192.168.0.10:9000",
+                "minio", "minio123");
+        String url = client.getPresignedObjectUrl(GetPresignedObjectUrlArgs.builder().method(Method.GET).bucket("ms-example")
+                .object("咕泡学院Java架构师VIP课程大纲_V4.1.png").expiry(3, TimeUnit.DAYS).build());
+        System.out.println("--> " + url);
     }
-
 }

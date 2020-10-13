@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import reactor.core.publisher.Mono;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 /**
  * -- 用户 Controller
@@ -46,9 +47,16 @@ public class UserController {
     @ApiOperation(value = "文件上传", notes = "文件上传", response = ResponseResult.class)
     public ResponseResult<String> uploadFile(@RequestParam("file") MultipartFile file) {
         try {
-            return ResponseResult.success(minIoFileStoreService.saveStream(file.getInputStream(), file.getOriginalFilename(), file.getContentType()));
+            return ResponseResult.success(minIoFileStoreService.saveStream(file.getInputStream(),
+                    file.getOriginalFilename(), file.getContentType()));
         } catch (IOException e) {
             throw new ServiceException(ResultCode.FAILURE);
         }
+    }
+
+    @PostMapping("/preSignedUrl/{fileName}")
+    @ApiOperation(value = "获取签名地址", notes = "获取签名地址", response = ResponseResult.class)
+    public ResponseResult<String> preSignedUrl(@PathVariable String fileName) {
+        return ResponseResult.success(minIoFileStoreService.preSignedUrl(fileName, 1, TimeUnit.DAYS));
     }
 }

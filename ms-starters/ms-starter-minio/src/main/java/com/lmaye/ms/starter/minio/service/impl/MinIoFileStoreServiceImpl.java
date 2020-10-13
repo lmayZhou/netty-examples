@@ -6,6 +6,7 @@ import com.lmaye.ms.starter.minio.service.IMinIoClientService;
 import com.lmaye.ms.starter.minio.service.IMinIoFileStoreService;
 import com.lmaye.ms.starter.minio.task.CleanCacheTask;
 import io.minio.*;
+import io.minio.http.Method;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -237,9 +238,8 @@ public class MinIoFileStoreServiceImpl implements IMinIoFileStoreService {
             }
             MinioClient client = connect();
             checkBucket(client, bucket);
-            ObjectWriteResponse response = client.uploadObject(UploadObjectArgs.builder().bucket(bucket)
-                    .filename(fileName).build());
-            return response.versionId();
+            client.uploadObject(UploadObjectArgs.builder().bucket(bucket).object(fileName).filename(fileName).build());
+            return fileName;
         } catch (Exception e) {
             log.error("save file error: {}", e.getMessage());
             return null;
@@ -265,7 +265,7 @@ public class MinIoFileStoreServiceImpl implements IMinIoFileStoreService {
             }
             MinioClient client = connect();
             checkBucket(client, bucket);
-            ObjectWriteResponse response = client.putObject(PutObjectArgs.builder().bucket(bucket).stream(is, -1, partSize)
+            client.putObject(PutObjectArgs.builder().bucket(bucket).stream(is, -1, partSize).object(fileName)
                     .contentType(contentType).build());
             return fileName;
         } catch (Exception e) {
@@ -297,7 +297,7 @@ public class MinIoFileStoreServiceImpl implements IMinIoFileStoreService {
     public boolean deleteAssignBucket(String bucket, String fileName) {
         try {
             MinioClient client = connect();
-            client.removeObject(RemoveObjectArgs.builder().bucket(bucket).versionId(fileName).build());
+            client.removeObject(RemoveObjectArgs.builder().bucket(bucket).object(fileName).build());
             return true;
         } catch (Exception e) {
             log.error("delete file error: {}", e.getMessage());
@@ -328,7 +328,7 @@ public class MinIoFileStoreServiceImpl implements IMinIoFileStoreService {
     public InputStream getStreamAssignBucket(String bucket, String fileName) {
         try {
             MinioClient client = connect();
-            return client.getObject(GetObjectArgs.builder().bucket(bucket).versionId(fileName).build());
+            return client.getObject(GetObjectArgs.builder().bucket(bucket).object(fileName).build());
         } catch (Exception e) {
             log.error("get file stream error: {}", e.getMessage());
             return null;
@@ -394,6 +394,41 @@ public class MinIoFileStoreServiceImpl implements IMinIoFileStoreService {
             client.downloadObject(DownloadObjectArgs.builder().bucket(bucket).filename(fileName).build());
         } catch (Exception e) {
             log.error("download file error: {}", e.getMessage());
+        }
+    }
+
+    /**
+     * 签名地址
+     *
+     * @param fileName 文件名称
+     * @param duration 有效时间
+     * @param unit     时间单位
+     * @return String
+     */
+    @Override
+    public String preSignedUrl(String fileName, int duration, TimeUnit unit) {
+        return preSignedUrlAssignBucket(bucket, fileName, duration, unit);
+    }
+
+    /**
+     * 签名地址
+     * - 指定 Bucket
+     *
+     * @param bucket   Bucket
+     * @param fileName 文件名称
+     * @param duration 有效时间
+     * @param unit     时间单位
+     * @return String
+     */
+    @Override
+    public String preSignedUrlAssignBucket(String bucket, String fileName, int duration, TimeUnit unit) {
+        try {
+            MinioClient client = connect();
+            return client.getPresignedObjectUrl(GetPresignedObjectUrlArgs.builder().method(Method.GET).bucket(bucket)
+                    .object(fileName).expiry(duration, unit).build());
+        } catch (Exception e) {
+            log.error("get preview url  error: {}", e.getMessage());
+            return null;
         }
     }
 }
