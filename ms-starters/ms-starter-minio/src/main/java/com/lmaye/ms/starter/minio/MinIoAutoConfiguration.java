@@ -25,17 +25,32 @@ import org.springframework.context.annotation.Profile;
 @ConditionalOnProperty(prefix = "minio.store", value = "enabled", havingValue = "true")
 @EnableConfigurationProperties(MinIoStoreProperties.class)
 public class MinIoAutoConfiguration {
+    /**
+     * MinIo File Store Service
+     * @return IMinIoFileStoreService
+     */
     @Bean
+    @ConditionalOnMissingBean(IMinIoFileStoreService.class)
     IMinIoFileStoreService minIoFileStore() {
         return new MinIoFileStoreServiceImpl();
     }
 
+    /**
+     * Clean Cache Service
+     *
+     * @return ICleanCacheService
+     */
     @Bean
     @ConditionalOnMissingBean(ICleanCacheService.class)
     ICleanCacheService cleanCache() {
         return new CleanCacheServiceImpl();
     }
 
+    /**
+     * MinIo Client Service
+     *
+     * @return IMinIoClientService
+     */
     @Bean
     @ConditionalOnMissingBean(IMinIoClientService.class)
     IMinIoClientService minIoClient() {
