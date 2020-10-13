@@ -3,13 +3,13 @@ package com.lmaye.ms.starter.minio.service;
 import io.minio.MinioClient;
 
 /**
- * -- MinIo Client
+ * -- MinIo Client Service
  *
  * @author lmay.Zhou
  * @date 2020/10/12 17:44 星期一
  * @since Email: lmay_zlm@meten.com
  */
-public interface IMinIoClient {
+public interface IMinIoClientService {
     /**
      * 获取 MinIoClient
      *

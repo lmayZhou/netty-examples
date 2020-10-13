@@ -1,12 +1,13 @@
 package com.lmaye.ms.starter.minio;
 
-import com.lmaye.ms.starter.minio.service.ICleanCache;
-import com.lmaye.ms.starter.minio.service.IMinIoClient;
-import com.lmaye.ms.starter.minio.service.IMinIoFileStore;
-import com.lmaye.ms.starter.minio.service.impl.CleanCacheImpl;
-import com.lmaye.ms.starter.minio.service.impl.MinIoClientImpl;
-import com.lmaye.ms.starter.minio.service.impl.MinIoFileStoreImpl;
+import com.lmaye.ms.starter.minio.service.ICleanCacheService;
+import com.lmaye.ms.starter.minio.service.IMinIoClientService;
+import com.lmaye.ms.starter.minio.service.IMinIoFileStoreService;
+import com.lmaye.ms.starter.minio.service.impl.CleanCacheServiceImpl;
+import com.lmaye.ms.starter.minio.service.impl.MinIoClientServiceImpl;
+import com.lmaye.ms.starter.minio.service.impl.MinIoFileStoreServiceImpl;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,22 +22,23 @@ import org.springframework.context.annotation.Profile;
  */
 @Configuration
 @Profile({"dev", "test"})
+@ConditionalOnProperty(prefix = "minio.store", value = "enabled", havingValue = "true")
 @EnableConfigurationProperties(MinIoStoreProperties.class)
 public class MinIoAutoConfiguration {
     @Bean
-    IMinIoFileStore minIoFileStore() {
-        return new MinIoFileStoreImpl();
+    IMinIoFileStoreService minIoFileStore() {
+        return new MinIoFileStoreServiceImpl();
     }
 
     @Bean
-    @ConditionalOnMissingBean(ICleanCache.class)
-    ICleanCache cleanCache() {
-        return new CleanCacheImpl();
+    @ConditionalOnMissingBean(ICleanCacheService.class)
+    ICleanCacheService cleanCache() {
+        return new CleanCacheServiceImpl();
     }
 
     @Bean
-    @ConditionalOnMissingBean(IMinIoClient.class)
-    IMinIoClient minIoClient() {
-        return new MinIoClientImpl();
+    @ConditionalOnMissingBean(IMinIoClientService.class)
+    IMinIoClientService minIoClient() {
+        return new MinIoClientServiceImpl();
     }
 }

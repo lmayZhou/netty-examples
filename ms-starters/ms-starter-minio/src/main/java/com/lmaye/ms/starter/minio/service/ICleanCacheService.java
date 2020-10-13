@@ -1,13 +1,13 @@
 package com.lmaye.ms.starter.minio.service;
 
 /**
- * -- Clean Cache
+ * -- Clean Cache Service
  *
  * @author lmay.Zhou
  * @date 2020/10/12 18:08 星期一
  * @since Email: lmay_zlm@meten.com
  */
-public interface ICleanCache {
+public interface ICleanCacheService {
     /**
      * 清除缓存
      *
