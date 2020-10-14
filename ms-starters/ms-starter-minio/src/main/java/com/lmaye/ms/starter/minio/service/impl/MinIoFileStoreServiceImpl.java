@@ -427,7 +427,6 @@ public class MinIoFileStoreServiceImpl implements IMinIoFileStoreService {
     public String preSignedUrlAssignBucket(String bucket, String fileName, int duration, TimeUnit unit) {
         try {
             MinioClient client = connect();
-            int x = 1/0;
             return client.getPresignedObjectUrl(GetPresignedObjectUrlArgs.builder().method(Method.GET).bucket(bucket)
                     .object(fileName).expiry(duration, unit).build());
         } catch (Exception e) {
