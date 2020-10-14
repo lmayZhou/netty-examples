@@ -1,6 +1,6 @@
 package com.lmaye.ms.service.user.controller;
 
-import com.lmaye.ms.core.context.ResponseResult;
+import com.lmaye.ms.core.context.ResultVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,8 +26,8 @@ public class UserController {
      * @return Mono<ResponseResult<String>>
      */
     @GetMapping("/test")
-    @ApiOperation(value = "测试接口", notes = "测试示例", response = ResponseResult.class)
-    public Mono<ResponseResult<String>> test() {
-        return Mono.just(ResponseResult.success("Test"));
+    @ApiOperation(value = "测试接口", notes = "测试示例", response = ResultVO.class)
+    public Mono<ResultVO<String>> test() {
+        return Mono.just(ResultVO.success("Test"));
     }
 }

@@ -1,6 +1,6 @@
 package com.lmaye.ms.service.file.controller;
 
-import com.lmaye.ms.core.context.ResponseResult;
+import com.lmaye.ms.core.context.ResultVO;
 import com.lmaye.ms.core.context.ResultCode;
 import com.lmaye.ms.core.exception.ServiceException;
 import com.lmaye.ms.starter.minio.service.IMinIoFileStoreService;
@@ -39,10 +39,10 @@ public class FileStoreController {
      * @return ResponseResult<String>
      */
     @PostMapping("/uploadFile")
-    @ApiOperation(value = "文件上传", notes = "文件上传", response = ResponseResult.class)
-    public ResponseResult<String> uploadFile(@RequestParam("file") MultipartFile file) {
+    @ApiOperation(value = "文件上传", notes = "文件上传", response = ResultVO.class)
+    public ResultVO<String> uploadFile(@RequestParam("file") MultipartFile file) {
         try {
-            return ResponseResult.success(minIoFileStoreService.saveStream(file.getInputStream(),
+            return ResultVO.success(minIoFileStoreService.saveStream(file.getInputStream(),
                     file.getOriginalFilename(), file.getContentType()));
         } catch (IOException e) {
             throw new ServiceException(ResultCode.FAILURE);
@@ -56,8 +56,8 @@ public class FileStoreController {
      * @return ResponseResult<String>
      */
     @PostMapping("/preSignedUrl/{fileName}")
-    @ApiOperation(value = "获取签名地址", notes = "获取签名地址", response = ResponseResult.class)
-    public ResponseResult<String> preSignedUrl(@PathVariable String fileName) {
-        return ResponseResult.success(minIoFileStoreService.preSignedUrl(fileName, 1, TimeUnit.DAYS));
+    @ApiOperation(value = "获取签名地址", notes = "获取签名地址", response = ResultVO.class)
+    public ResultVO<String> preSignedUrl(@PathVariable String fileName) {
+        return ResultVO.success(minIoFileStoreService.preSignedUrl(fileName, 1, TimeUnit.DAYS));
     }
 }

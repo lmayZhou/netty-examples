@@ -21,7 +21,7 @@ import java.util.Objects;
 @Accessors(chain = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @ApiModel(value = "ResponseResult", description = "响应结果")
-public class ResponseResult<T> implements Serializable {
+public class ResultVO<T> implements Serializable {
     /**
      * 响应代码
      */
@@ -40,14 +40,22 @@ public class ResponseResult<T> implements Serializable {
     @ApiModelProperty("响应数据")
     private T data;
 
-    public ResponseResult(Integer code, String msg) {
+    public ResultVO() {
+    }
+
+    public ResultVO(Integer code, String msg) {
         this.code = code;
         this.msg = msg;
     }
 
-    public ResponseResult(Integer code, String msg, T data) {
-        this.code = code;
-        this.msg = msg;
+    public ResultVO(IResultCode resultCode) {
+        this.code = resultCode.getCode();
+        this.msg = resultCode.getPropKey();
+    }
+
+    public ResultVO(IResultCode resultCode, T data) {
+        this.code = resultCode.getCode();
+        this.msg = resultCode.getPropKey();
         this.data = data;
     }
 
@@ -58,8 +66,8 @@ public class ResponseResult<T> implements Serializable {
      * @param <T>  泛型
      * @return ResponseResult<T>
      */
-    public static <T> ResponseResult<T> success(T data) {
-        return new ResponseResult<>(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getDesc(), data);
+    public static <T> ResultVO<T> success(T data) {
+        return new ResultVO<>(ResultCode.SUCCESS, data);
     }
 
     /**
@@ -68,19 +76,8 @@ public class ResponseResult<T> implements Serializable {
      * @param <T> 泛型
      * @return ResponseResult<T>
      */
-    public static <T> ResponseResult<T> failed() {
-        return new ResponseResult<>(ResultCode.FAILURE.getCode(), ResultCode.FAILURE.getPropKey(), null);
-    }
-
-    /**
-     * 处理失败
-     *
-     * @param resultCode 响应编码
-     * @param <T>        泛型
-     * @return ResponseResult<T>
-     */
-    public static <T> ResponseResult<T> failed(ResultCode resultCode) {
-        return new ResponseResult<>(resultCode.getCode(), resultCode.getPropKey(), null);
+    public static <T> ResultVO<T> failed() {
+        return new ResultVO<>(ResultCode.FAILURE, null);
     }
 
     /**
@@ -91,8 +88,8 @@ public class ResponseResult<T> implements Serializable {
      * @param <T>        泛型
      * @return ResponseResult<T>
      */
-    public static <T> ResponseResult<T> response(ResultCode resultCode, T data) {
-        return new ResponseResult<>(resultCode.getCode(), resultCode.getPropKey(), data);
+    public static <T> ResultVO<T> response(IResultCode resultCode, T data) {
+        return new ResultVO<>(resultCode, data);
     }
 
     /**

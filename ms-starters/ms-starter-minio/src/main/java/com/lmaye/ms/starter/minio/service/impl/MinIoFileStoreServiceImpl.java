@@ -1,5 +1,7 @@
 package com.lmaye.ms.starter.minio.service.impl;
 
+import com.lmaye.ms.core.context.ResultCode;
+import com.lmaye.ms.core.exception.ServiceException;
 import com.lmaye.ms.starter.minio.MinIoStoreProperties;
 import com.lmaye.ms.starter.minio.service.ICleanCacheService;
 import com.lmaye.ms.starter.minio.service.IMinIoClientService;
@@ -154,7 +156,7 @@ public class MinIoFileStoreServiceImpl implements IMinIoFileStoreService {
             return true;
         } catch (Exception e) {
             log.error("create bucket error: {}", e.getMessage());
-            return false;
+            throw new ServiceException(ResultCode.OPERATION_FAILED);
         }
     }
 
@@ -175,7 +177,7 @@ public class MinIoFileStoreServiceImpl implements IMinIoFileStoreService {
             return true;
         } catch (Exception e) {
             log.error("delete bucket error: {}", e.getMessage());
-            return false;
+            throw new ServiceException(ResultCode.OPERATION_FAILED);
         }
     }
 
@@ -242,7 +244,7 @@ public class MinIoFileStoreServiceImpl implements IMinIoFileStoreService {
             return fileName;
         } catch (Exception e) {
             log.error("save file error: {}", e.getMessage());
-            return null;
+            throw new ServiceException(ResultCode.OPERATION_FAILED);
         }
     }
 
@@ -270,7 +272,7 @@ public class MinIoFileStoreServiceImpl implements IMinIoFileStoreService {
             return fileName;
         } catch (Exception e) {
             log.error("save file error: {}", e.getMessage());
-            return null;
+            throw new ServiceException(ResultCode.OPERATION_FAILED);
         }
     }
 
@@ -301,7 +303,7 @@ public class MinIoFileStoreServiceImpl implements IMinIoFileStoreService {
             return true;
         } catch (Exception e) {
             log.error("delete file error: {}", e.getMessage());
-            return false;
+            throw new ServiceException(ResultCode.OPERATION_FAILED);
         }
     }
 
@@ -331,7 +333,7 @@ public class MinIoFileStoreServiceImpl implements IMinIoFileStoreService {
             return client.getObject(GetObjectArgs.builder().bucket(bucket).object(fileName).build());
         } catch (Exception e) {
             log.error("get file stream error: {}", e.getMessage());
-            return null;
+            throw new ServiceException(ResultCode.OPERATION_FAILED);
         }
     }
 
@@ -366,7 +368,7 @@ public class MinIoFileStoreServiceImpl implements IMinIoFileStoreService {
             return file;
         } catch (IOException e) {
             log.error("get file error: {}", e.getMessage());
-            return null;
+            throw new ServiceException(ResultCode.OPERATION_FAILED);
         }
     }
 
@@ -394,6 +396,7 @@ public class MinIoFileStoreServiceImpl implements IMinIoFileStoreService {
             client.downloadObject(DownloadObjectArgs.builder().bucket(bucket).filename(fileName).build());
         } catch (Exception e) {
             log.error("download file error: {}", e.getMessage());
+            throw new ServiceException(ResultCode.OPERATION_FAILED);
         }
     }
 
@@ -424,11 +427,12 @@ public class MinIoFileStoreServiceImpl implements IMinIoFileStoreService {
     public String preSignedUrlAssignBucket(String bucket, String fileName, int duration, TimeUnit unit) {
         try {
             MinioClient client = connect();
+            int x = 1/0;
             return client.getPresignedObjectUrl(GetPresignedObjectUrlArgs.builder().method(Method.GET).bucket(bucket)
                     .object(fileName).expiry(duration, unit).build());
         } catch (Exception e) {
-            log.error("get preview url  error: {}", e.getMessage());
-            return null;
+            log.error("get pre signed url  error: {}", e.getMessage());
+            throw new ServiceException(ResultCode.OPERATION_FAILED);
         }
     }
 }
