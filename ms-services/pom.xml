@@ -21,6 +21,8 @@
         <module>ms-service-oauth</module>
         <!-- User Service -->
         <module>ms-service-user</module>
+        <!-- File Service -->
+        <module>ms-service-file</module>
     </modules>
 
     <!-- Properties -->

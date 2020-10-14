@@ -1,11 +1,11 @@
-package com.lmaye.ms.service.user;
+package com.lmaye.ms.service.file;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 /**
- * -- 用户服务 Application
+ * -- 文件服务 Application
  *
  * @author lmay.Zhou
  * @qq 379839355
@@ -14,8 +14,8 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  */
 @SpringBootApplication
 @EnableDiscoveryClient
-public class MsServiceUserApplication {
+public class FileServiceApplication {
     public static void main(String[] args) {
-        SpringApplication.run(MsServiceUserApplication.class, args);
+        SpringApplication.run(FileServiceApplication.class, args);
     }
 }

@@ -24,21 +24,6 @@ spring:
 #        namespace: a6b8fdfd-14b4-4264-94fc-9d41b92a7035
         namespace: 7fbd94b1-686e-4270-b148-d50e4b2ce64c
 
-# MinIO File Store
-minio:
-  store:
-#    endpoint: http://172.31.6.106:9000
-    endpoint: http://192.168.0.10:9000
-    bucket: ms-example
-    accessKey: minio
-    secretKey: minio123
-    partMaxSize: 10485760
-    cleanCache:
-      enabled: true
-      directory: ./tmp
-      cleanPeriod: 12960000
-      aliveDuration: 12960000
-
 # 日志
 logging:
   config: classpath:log4j2-dev.xml

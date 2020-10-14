@@ -1,0 +1,34 @@
+# 服务端口
+server:
+  port: 9001
+
+# Spring 配置
+spring:
+  application:
+    name: service-file
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+  profiles:
+    active: dev
+
+# Swagger 配置
+swagger:
+  enabled: true
+  title: Microservice 文件服务-在线接口文档
+  description: Microservice 文件服务-在线接口文档
+  version: 1.0.1
+  termsOfServiceUrl: https://www.lmaye.com
+  basePackage: com.lmaye.ms.service.file.controller
+  basePath: /**
+  contact:
+    email: lmay@lmaye.com
+    name: lmay Zhou
+    url: https://www.lmaye.com
+  globalOperationParameters:
+    - description: 凭证
+      modelRef: string
+      name: Authorization
+      parameterType: header
+      required: false

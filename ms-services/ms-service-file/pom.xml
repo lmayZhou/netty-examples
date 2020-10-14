@@ -2,11 +2,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>ms-service-user</artifactId>
+    <artifactId>ms-service-file</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>ms-service-user</name>
+    <name>ms-service-file</name>
     <packaging>jar</packaging>
-    <description>Microservice User Service project for Spring Boot</description>
+    <description>Microservice File Service project for Spring Boot</description>
 
     <!-- lookup parent from repository -->
     <parent>
@@ -29,10 +29,10 @@
             <groupId>com.lmaye</groupId>
             <artifactId>ms-starter-swagger</artifactId>
         </dependency>
-        <!-- Microservice Mybatis Starter -->
+        <!-- Microservice MinIO Starter -->
         <dependency>
             <groupId>com.lmaye</groupId>
-            <artifactId>ms-starter-mybatis</artifactId>
+            <artifactId>ms-starter-minio</artifactId>
         </dependency>
         <!-- Nacos -->
         <dependency>
