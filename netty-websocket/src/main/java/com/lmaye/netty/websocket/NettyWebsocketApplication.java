@@ -1,13 +1,13 @@
-package com.lmaye.netty.examples;
+package com.lmaye.netty.websocket;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class NettyExamplesApplication {
+public class NettyWebsocketApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(NettyExamplesApplication.class, args);
+        SpringApplication.run(NettyWebsocketApplication.class, args);
     }
 
 }

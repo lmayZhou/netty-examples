@@ -1,10 +1,10 @@
-package com.lmaye.netty.examples;
+package com.lmaye.netty.learning;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class NettyExamplesApplicationTests {
+class NettyLearningApplicationTests {
 
     @Test
     void contextLoads() {
