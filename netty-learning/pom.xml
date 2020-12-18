@@ -5,6 +5,7 @@
     <artifactId>netty-learning</artifactId>
     <version>1.0.1-SNAPSHOT</version>
     <name>netty-learning</name>
+    <packaging>jar</packaging>
     <description>Netty Learning project for Spring Boot</description>
 
     <!-- lookup parent from repository -->

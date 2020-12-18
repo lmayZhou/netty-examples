@@ -5,6 +5,7 @@
     <artifactId>netty-websocket</artifactId>
     <version>1.0.1-SNAPSHOT</version>
     <name>netty-websocket</name>
+    <packaging>jar</packaging>
     <description>Netty WebSocket project for Spring Boot</description>
 
     <!-- lookup parent from repository -->

@@ -6,6 +6,7 @@
     <artifactId>netty-examples</artifactId>
     <version>1.0.1-SNAPSHOT</version>
     <name>netty-examples</name>
+    <packaging>pom</packaging>
     <description>Netty Examples project for Spring Boot</description>
 
     <!-- lookup parent from repository -->
