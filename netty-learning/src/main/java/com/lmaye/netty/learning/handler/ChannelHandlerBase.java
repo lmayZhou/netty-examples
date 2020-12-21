@@ -22,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class ChannelHandlerBase extends SimpleChannelInboundHandler<TextWebSocketFrame> {
     @Autowired
     private ChannelGroupUtil channelGroupUtil;
+
     @Autowired
     private MessageSender messageSender;
 
